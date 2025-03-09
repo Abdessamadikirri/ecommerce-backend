@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ProductApiController extends Controller
         $products=Product::all();
         if( $products){
 
-            return response()->json($products,200);
+            return response()->json(ProductResource::collection($products),200);
         }else{
             return response()->json(['message'=>'there is not records in the product model'],200);
         }
@@ -92,12 +93,17 @@ class ProductApiController extends Controller
             $product->image = $fileName;
             $product->category = $request->input('category');
 
+            $product->save();
+            
+
         }else{
             $product->name=$request->input('name');
             $product->description = $request->input('description');
             $product->price = $request->input('price');
             $product->stock_quantity = $request->input('stock_quantity');
             $product->category = $request->input('category');
+
+            $product->save();
         };
         
 
@@ -107,7 +113,7 @@ class ProductApiController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return response()->json($product);
+        return response()->json(new ProductResource($product),200);
 
     }
     // delete function ins the product controller 

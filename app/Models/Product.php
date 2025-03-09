@@ -12,8 +12,8 @@ class Product extends Model
         'description',
         'price',
         'stock_quantity',
-        'image',
-        'category'
+        'category',
+        'image'
     ];
 
     public function orderItems():HasMany
