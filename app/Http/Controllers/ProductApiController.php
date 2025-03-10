@@ -10,9 +10,22 @@ use Illuminate\Support\Facades\File;
 
 class ProductApiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products=Product::all();
+        
+        $query = Product::query();
+
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->query('name') . '%');
+        }
+
+        if ($request->has('category')) {
+            $query->where('category', 'like', '%' . $request->query('category') . '%');
+        }
+
+        $products = $query->get();
+
+
         if( $products){
 
             return response()->json(ProductResource::collection($products),200);
