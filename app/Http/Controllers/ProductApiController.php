@@ -121,7 +121,7 @@ class ProductApiController extends Controller
     {
         $product=Product::findOrFail($id);
 
-        $productImage=public_path('images/'.$product->image);
+        $productImage=storage_path('app/public/'.$product->image);
 
         
         if(File::exists($productImage)){
