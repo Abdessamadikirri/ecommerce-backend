@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->enum('status',['pending','completed','canceled'])->default('pending');
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->enum('status', ['pending', 'completed','active'])->default('pending');
+
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -27,4 +28,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('carts');
     }
+
+    
 };

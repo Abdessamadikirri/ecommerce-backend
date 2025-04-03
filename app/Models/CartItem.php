@@ -14,6 +14,7 @@ class CartItem extends Model
         'quantity',
         'price'
     ];
+    protected $table = 'cartitems';
     public function product():BelongsTo
     {
         return $this->belongsTo(Product::class);

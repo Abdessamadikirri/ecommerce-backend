@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status',['pending','completed','canceled'])->default('pending');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
         });
     }
 
